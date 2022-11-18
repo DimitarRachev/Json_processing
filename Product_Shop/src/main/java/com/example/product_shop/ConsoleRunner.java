@@ -4,6 +4,7 @@ import com.example.product_shop.service.CategoryService;
 import com.example.product_shop.service.ProductService;
 import com.example.product_shop.service.SeedService;
 import com.example.product_shop.service.UserService;
+import com.google.gson.Gson;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -17,8 +18,37 @@ public class ConsoleRunner implements CommandLineRunner {
   private final UserService userService;
   private final ProductService productService;
   private final CategoryService categoryService;
+  private final Gson gson;
 
   @Override public void run(String... args) throws Exception {
     seedService.seedAll();
+    //    findAllProductsBetween(500.0, 1000.0);
+//        findAllSuccessfullySellers();
+    categoriesByProductCount();
+
+  }
+
+  private void categoriesByProductCount() {
+    categoryService
+      .findAllByProductCount()
+      .stream()
+      .map(gson::toJson)
+      .forEach(System.out::println);
+
+  }
+
+  private void findAllSuccessfullySellers() {
+    userService
+      .findAllSuccessfullySellers()
+      .stream()
+      .map(gson::toJson)
+      .forEach(System.out::println);
+  }
+
+  private void findAllProductsBetween(Double lowerBound, Double upperBound) {
+    productService.findAllWithPriceBetweenWithNoSeller(lowerBound, upperBound)
+      .stream()
+      .map(gson::toJson)
+      .forEach(System.out::println);
   }
 }

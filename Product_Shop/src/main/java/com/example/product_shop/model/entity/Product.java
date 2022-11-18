@@ -57,4 +57,8 @@ public class Product extends BaseEntity {
   @Override public int hashCode() {
     return Objects.hash(name);
   }
+
+  public String getSellerFullName() {
+    return  (seller.getFirstName() == null ? "" : seller.getFirstName()) + " " + seller.getLastName();
+  }
 }
