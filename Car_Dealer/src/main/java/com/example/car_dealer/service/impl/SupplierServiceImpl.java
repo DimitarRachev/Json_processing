@@ -1,5 +1,8 @@
 package com.example.car_dealer.service.impl;
 
+import java.util.Random;
+
+import com.example.car_dealer.model.entity.Supplier;
 import com.example.car_dealer.repository.SupplierRepository;
 import com.example.car_dealer.service.SupplierService;
 
@@ -11,4 +14,18 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SupplierServiceImpl implements SupplierService {
   private final SupplierRepository repository;
+  private final Random random;
+
+  @Override public void save(Supplier supplier) {
+    repository.save(supplier);
+  }
+
+  @Override public long count() {
+    return repository.count();
+  }
+
+  @Override public Supplier getRandomSupplier() {
+    long id = random.nextLong(repository.count()) + 1L;
+    return repository.findById(id).orElseThrow(RuntimeException::new);
+  }
 }

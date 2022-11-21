@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -30,8 +31,8 @@ public class Part extends BaseEntity{
   @Column(nullable = false)
   private Integer quantity;
 
-  @ManyToMany(targetEntity = Car.class)
-  private List<Car> cars;
+//  @ManyToMany(targetEntity = Car.class, fetch = FetchType.EAGER)
+//  private List<Car> cars;
 
   @ManyToOne( targetEntity = Supplier.class)
   private Supplier supplier;

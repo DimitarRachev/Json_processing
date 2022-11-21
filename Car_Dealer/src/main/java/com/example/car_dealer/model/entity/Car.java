@@ -24,8 +24,8 @@ public class Car extends BaseEntity {
   @Column(nullable = false)
   private String model;
   @Column(nullable = false)
-  private Integer travellerDistance;
-  @ManyToMany(targetEntity = Part.class, mappedBy = "cars")
+  private Long travelledDistance;
+  @ManyToMany(targetEntity = Part.class)
   private List<Part> parts;
 
 }

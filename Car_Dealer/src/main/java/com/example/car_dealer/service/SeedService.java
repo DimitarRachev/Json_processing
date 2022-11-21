@@ -1,24 +1,26 @@
 package com.example.car_dealer.service;
 
+import java.io.IOException;
+
 import lombok.RequiredArgsConstructor;
 
 
 public interface SeedService {
-  default void seedAll(){
+  default void seedAll() throws IOException {
     seedSuppliers();
     seedParts();
     seedCars();
-    seedSales();
     seedCustomers();
+    seedSales();
   }
 
    void seedSales();
 
-   void seedCars();
+   void seedCars() throws IOException;
 
-   void seedParts();
+   void seedParts() throws IOException;
 
-   void seedSuppliers();
+   void seedSuppliers() throws IOException;
 
-   void seedCustomers();
+   void seedCustomers() throws IOException;
 }
