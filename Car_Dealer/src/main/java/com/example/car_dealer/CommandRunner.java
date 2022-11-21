@@ -20,7 +20,16 @@ public class CommandRunner implements CommandLineRunner {
 
   @Override public void run(String... args) throws Exception {
     seedService.seedAll();
-    orderedCustomers();
+//    orderedCustomers();
+    getAllByMaker("Toyota");
+  }
+
+  private void getAllByMaker(String make) {
+    carService
+      .getAllToyotas(make)
+      .stream()
+      .map(gson::toJson)
+      .forEach(System.out::println);
   }
 
   private void orderedCustomers() {
