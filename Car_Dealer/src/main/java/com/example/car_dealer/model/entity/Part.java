@@ -21,7 +21,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "parts")
-public class Part extends BaseEntity{
+public class Part extends BaseEntity {
   @Column(nullable = false)
   private String name;
 
@@ -31,9 +31,6 @@ public class Part extends BaseEntity{
   @Column(nullable = false)
   private Integer quantity;
 
-//  @ManyToMany(targetEntity = Car.class, fetch = FetchType.EAGER)
-//  private List<Car> cars;
-
-  @ManyToOne( targetEntity = Supplier.class)
+  @ManyToOne(targetEntity = Supplier.class)
   private Supplier supplier;
-  }
+}

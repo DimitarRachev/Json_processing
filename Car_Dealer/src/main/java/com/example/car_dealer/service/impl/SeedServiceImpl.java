@@ -80,8 +80,8 @@ public class SeedServiceImpl implements SeedService {
       FileReader reader = FileManipulationFactory.getFileReader(PARTS_JSON);
       Arrays.stream(gson
           .fromJson(reader, PartImportDto[].class))
-        .peek(p -> p.setSupplier(supplierService.getRandomSupplier()))
         .map(p -> mapper.map(p, Part.class))
+        .peek(p -> p.setSupplier(supplierService.getRandomSupplier()))
         .forEach(partService::save);
       reader.close();
     }

@@ -3,7 +3,10 @@ package com.example.car_dealer.service.impl;
 import java.util.List;
 import java.util.Random;
 
+import javax.transaction.Transactional;
+
 import com.example.car_dealer.model.dto.CarExportDto;
+import com.example.car_dealer.model.dto.CarWithPartsListDto;
 import com.example.car_dealer.model.entity.Car;
 import com.example.car_dealer.repository.CarRepository;
 import com.example.car_dealer.service.CarService;
@@ -38,6 +41,16 @@ public class CarServiceImpl implements CarService {
       .findAllByMakeOrderByModelAscTravelledDistanceDesc(make)
       .stream()
       .map(c -> mapper.map(c, CarExportDto.class))
+      .toList();
+  }
+
+  @Transactional
+  @Override public List<CarWithPartsListDto> getCarsWithPartsList() {
+
+    return carRepository.
+      findAll()
+      .stream()
+      .map(c -> mapper.map(c, CarWithPartsListDto.class))
       .toList();
   }
 }

@@ -3,6 +3,7 @@ package com.example.car_dealer;
 import com.example.car_dealer.service.CarService;
 import com.example.car_dealer.service.CustomerService;
 import com.example.car_dealer.service.SeedService;
+import com.example.car_dealer.service.SupplierService;
 import com.google.gson.Gson;
 
 import org.springframework.boot.CommandLineRunner;
@@ -15,13 +16,33 @@ import lombok.RequiredArgsConstructor;
 public class CommandRunner implements CommandLineRunner {
   private final SeedService seedService;
   private final CustomerService customerService;
+  private final SupplierService supplierService;
   private final CarService carService;
   private final Gson gson;
 
   @Override public void run(String... args) throws Exception {
     seedService.seedAll();
 //    orderedCustomers();
-    getAllByMaker("Toyota");
+//    getAllByMaker("Toyota");
+//    getLocalSuppliers();
+    getCarsWithPartsList();
+
+  }
+
+  private void getCarsWithPartsList() {
+    carService
+      .getCarsWithPartsList()
+      .stream()
+      .map(gson::toJson)
+      .forEach(System.out::println);
+  }
+
+  private void getLocalSuppliers() {
+    supplierService
+      .getLocalSuppliers()
+      .stream()
+      .map(gson::toJson)
+      .forEach(System.out::println);
   }
 
   private void getAllByMaker(String make) {

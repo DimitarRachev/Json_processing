@@ -3,12 +3,16 @@ package com.example.car_dealer.config;
 import java.time.LocalDateTime;
 import java.util.Random;
 
+import com.example.car_dealer.model.dto.SupplierSimpleExportDto;
+import com.example.car_dealer.model.entity.Supplier;
 import com.example.car_dealer.util.LocalDateTimeDeserializer;
 import com.example.car_dealer.util.LocalDateTimeSerializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
+import org.modelmapper.TypeMap;
 import org.springframework.context.annotation.Bean;
 
 @org.springframework.context.annotation.Configuration
@@ -24,7 +28,9 @@ public class Configuration {
 
   @Bean
   public ModelMapper modelMapper() {
-    return new ModelMapper();
+    ModelMapper mapper = new ModelMapper();
+
+    return mapper;
   }
 
   @Bean
