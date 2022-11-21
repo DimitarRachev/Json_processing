@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.example.car_dealer.model.dto.CustomerExportDto;
+import com.example.car_dealer.model.dto.CustomerWithSalesDto;
 import com.example.car_dealer.model.entity.Customer;
 import com.example.car_dealer.repository.CustomerRepository;
 import com.example.car_dealer.service.CustomerService;
@@ -38,5 +39,9 @@ private final ModelMapper mapper;
       .stream()
       .map(c -> mapper.map(c, CustomerExportDto.class))
       .toList();
+  }
+
+  @Override public List<CustomerWithSalesDto> getTotalSalesByCustomer() {
+    return customerRepository.findCustomerWithSales();
   }
 }

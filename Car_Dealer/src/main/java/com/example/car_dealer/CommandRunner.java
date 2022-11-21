@@ -2,6 +2,7 @@ package com.example.car_dealer;
 
 import com.example.car_dealer.service.CarService;
 import com.example.car_dealer.service.CustomerService;
+import com.example.car_dealer.service.SaleService;
 import com.example.car_dealer.service.SeedService;
 import com.example.car_dealer.service.SupplierService;
 import com.google.gson.Gson;
@@ -17,16 +18,34 @@ public class CommandRunner implements CommandLineRunner {
   private final SeedService seedService;
   private final CustomerService customerService;
   private final SupplierService supplierService;
+  private final SaleService saleService;
   private final CarService carService;
   private final Gson gson;
 
   @Override public void run(String... args) throws Exception {
     seedService.seedAll();
-//    orderedCustomers();
-//    getAllByMaker("Toyota");
-//    getLocalSuppliers();
-    getCarsWithPartsList();
+    //    orderedCustomers();
+    //    getAllByMaker("Toyota");
+    //    getLocalSuppliers();
+    //    getCarsWithPartsList();
+    //    getTotalSalesByCustomer();
+    getSalesWithDiscount();
+  }
 
+  private void getSalesWithDiscount() {
+    saleService
+      .getSalesWithDiscount()
+      .stream()
+      .map(gson::toJson)
+      .forEach(System.out::println);
+  }
+
+  private void getTotalSalesByCustomer() {
+    customerService
+      .getTotalSalesByCustomer()
+      .stream()
+      .map(gson::toJson)
+      .forEach(System.out::println);
   }
 
   private void getCarsWithPartsList() {

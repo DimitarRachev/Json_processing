@@ -1,8 +1,10 @@
 package com.example.car_dealer.service;
 
+import java.util.Collection;
 import java.util.List;
 
 import com.example.car_dealer.model.dto.CustomerExportDto;
+import com.example.car_dealer.model.dto.CustomerWithSalesDto;
 import com.example.car_dealer.model.entity.Customer;
 
 public interface CustomerService {
@@ -13,4 +15,6 @@ public interface CustomerService {
   Customer getRandomCustomer();
 
   List<CustomerExportDto> findAllOrderedByBirthDateAndYoung();
+
+  List<CustomerWithSalesDto> getTotalSalesByCustomer();
 }

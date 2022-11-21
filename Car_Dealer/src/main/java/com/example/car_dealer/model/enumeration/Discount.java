@@ -19,6 +19,6 @@ public enum Discount {
   }
 
   public Double getDiscount() {
-    return discount;
+    return 1 - discount/ 100 ;
   }
 }
