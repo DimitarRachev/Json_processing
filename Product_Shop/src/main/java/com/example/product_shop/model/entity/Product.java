@@ -59,6 +59,10 @@ public class Product extends BaseEntity {
   }
 
   public String getSellerFullName() {
-    return  (seller.getFirstName() == null ? "" : seller.getFirstName()) + " " + seller.getLastName();
+    return (seller.getFirstName() == null ? "" : seller.getFirstName()) + " " + seller.getLastName();
+  }
+
+  public boolean isSold() {
+    return this.buyer != null;
   }
 }

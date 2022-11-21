@@ -1,13 +1,16 @@
 package com.example.product_shop.service.impl;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
+import com.example.product_shop.model.dto.AllUsersInfoDto;
 import com.example.product_shop.model.dto.ProductWithBuyerDto;
 import com.example.product_shop.model.dto.SellerWithProductsDto;
+import com.example.product_shop.model.dto.UserWithProductsDto;
 import com.example.product_shop.model.entity.Product;
 import com.example.product_shop.model.entity.User;
 import com.example.product_shop.repository.UserRepository;
@@ -40,13 +43,22 @@ public class UserServiceImpl implements UserService {
 
   @Transactional
   @Override public List<SellerWithProductsDto> findAllSuccessfullySellers() {
-    return userRepository.findAllSuccessfullySellers()
+    return userRepository.findAllByProductsSoldBuyerIsNotNull().get()
       .stream()
-      .filter(u -> u.getProductsSold()
-        .stream()
-        .anyMatch(p -> p.getBuyer() != null))
       .map(UserServiceImpl::makeSellerWithProductDto)
+      .sorted(Comparator.comparing(SellerWithProductsDto::getLastName))
       .toList();
+  }
+
+  @Transactional
+  @Override public AllUsersInfoDto getUsersAndProducts() {
+
+    List<UserWithProductsDto> userWithProductsDtos =
+      userRepository.findAllByProductsSoldBuyerIsNotNullOrderByProductsSoldDescLastName()
+        .stream()
+        .map(u -> mapper.map(u, UserWithProductsDto.class))
+        .collect(Collectors.toList());
+    return new AllUsersInfoDto(userWithProductsDtos);
   }
 
   private static SellerWithProductsDto makeSellerWithProductDto(User u) {

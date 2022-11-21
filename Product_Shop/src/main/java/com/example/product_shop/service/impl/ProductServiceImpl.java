@@ -31,12 +31,13 @@ public class ProductServiceImpl implements ProductService {
   }
 
   @Override public List<ProductExportDto> findAllWithPriceBetweenWithNoSeller(double lowerBound, double upperBound) {
-    TypeMap<Product, ProductExportDto> propertymapper = modelMapper.createTypeMap(Product.class, ProductExportDto.class);
-    propertymapper.addMappings(mapper -> mapper.map(Product::getSellerFullName, ProductExportDto::setSeller ));
+    TypeMap<Product, ProductExportDto> propertymapper =
+      modelMapper.createTypeMap(Product.class, ProductExportDto.class);
+    propertymapper.addMappings(mapper -> mapper.map(Product::getSellerFullName, ProductExportDto::setSeller));
     return productRepository
-      .findAllWithPriceBetweenWithNoSeller(BigDecimal.valueOf(lowerBound), BigDecimal.valueOf(upperBound))
+      .findAllByPriceBetweenAndBuyerIsNullOrderByPrice(BigDecimal.valueOf(lowerBound), BigDecimal.valueOf(upperBound))
       .stream()
       .map(p -> modelMapper.map(p, ProductExportDto.class))
-      .collect(Collectors.toList());
+      .toList();
   }
 }

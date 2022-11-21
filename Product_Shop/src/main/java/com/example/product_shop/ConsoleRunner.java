@@ -22,10 +22,20 @@ public class ConsoleRunner implements CommandLineRunner {
 
   @Override public void run(String... args) throws Exception {
     seedService.seedAll();
-    //    findAllProductsBetween(500.0, 1000.0);
-//        findAllSuccessfullySellers();
-    categoriesByProductCount();
+//    findAllProductsBetween(500.0, 1000.0);
+//    findAllSuccessfullySellers();
+//    categoriesByProductCount();
+    usersAndProducts();
 
+  }
+
+  private void usersAndProducts() {
+//    userService
+//      .getUsersAndProducts()
+//      .stream()
+//      .map(gson::toJson)
+//      .forEach(System.out::println);
+    System.out.println(gson.toJson(userService.getUsersAndProducts()));
   }
 
   private void categoriesByProductCount() {
